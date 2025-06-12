@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { addwishlist } from './redux/slices/wishlistSlice'
+import { addtoToCart } from './redux/slices/cartSlice'
+import { useDispatch } from 'react-redux'
 
 
 function Detail() {
@@ -24,6 +26,8 @@ console.log(prod);
     const res=pro.find((item)=>item.id==id)
     setprod(res)
  }
+ 
+ const dispatch=useDispatch()
 
   return (
    <>
@@ -43,12 +47,12 @@ console.log(prod);
                                 <div className="text-center">
                                  
                                   <div className='d-flex justify-content-between'>
-                                   <Link className='btn ' to={'/cart'}>
-                                   <i className="fa-solid fa-cart-plus fa-sm"></i>
-                                   </Link>
-                                   <Link className='btn' to={'/wish'}>
-                                   <i className="fa-solid fa-heart-circle-plus fa-2xl" style={{color: "red"}}></i>
-                                   </Link>
+                                  <button className='btn btn-sm' onClick={()=>{dispatch(addtoToCart(prod))}} >
+                                  <i className="fa-solid fa-cart-plus fa-2xl"></i>
+                                  </button>
+                                    <button className='btn btn-sm' onClick={()=>{dispatch(addwishlist(prod))}}>
+                                     <i className="fa-solid fa-heart-circle-plus fa-2xl" style={{color: "red"}}></i>
+                                    </button>
                                   </div>
                                   </div>
                             </div>
